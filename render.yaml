@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: pch-pro-dialer-webhook
+    env: python
+    buildCommand: ""
+    startCommand: "python webhook_server.py"
+    plan: free
+    envVars:
+      - key: VAPI_API_KEY
+        value: 6e92ac77-2cd5-40e7-b745-d5ae25e62936
+      - key: ASSISTANT_ID
+        value: 583d07a7-e741-4782-8262-ed28fe85aa82
+      - key: PHONE_NUMBER_ID
+        value: 8d64f763-0f57-4349-9a6f-4afac3ef9c53
