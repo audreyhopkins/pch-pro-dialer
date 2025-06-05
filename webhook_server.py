@@ -11,7 +11,6 @@ os.makedirs("logs", exist_ok=True)
 TRANSCRIPT_LOG = "logs/transcripts.csv"
 CALLS_LOG = "logs/calls_log.csv"
 
-# Initialize log files if they don't exist
 if not os.path.isfile(TRANSCRIPT_LOG):
     with open(TRANSCRIPT_LOG, 'w', newline='', encoding='utf-8') as f:
         csv.writer(f).writerow(["timestamp", "role", "transcript", "call_id"])
@@ -60,13 +59,9 @@ def handle_tool_call(message):
             result = f"{args.get('full_name')} has been verified successfully."
 
         elif name == "calculate_tax":
-            prize_amount = float(args.get("prize_amount", 0))
+            prize_amount = 750000
             tax = round(prize_amount * 0.24, 2)
-            result = f"Calculated tax is ${tax}."
-
-        elif name == "send_payment_link":
-            phone = args.get("phone")
-            result = f"Payment link sent to {phone}."
+            result = f"The prize amount is $750,000. The required federal withholding tax is ${tax}."
 
         elif name == "log_claim_attempt":
             result = "Claim attempt logged."
@@ -79,7 +74,6 @@ def handle_tool_call(message):
     return jsonify({"results": results}), 200
 
 
-# Entry point for Render deployment (uses PORT environment variable)
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
