@@ -11,6 +11,7 @@ os.makedirs("logs", exist_ok=True)
 TRANSCRIPT_LOG = "logs/transcripts.csv"
 CALLS_LOG = "logs/calls_log.csv"
 
+# Initialize log files if they don't exist
 if not os.path.isfile(TRANSCRIPT_LOG):
     with open(TRANSCRIPT_LOG, 'w', newline='', encoding='utf-8') as f:
         csv.writer(f).writerow(["timestamp", "role", "transcript", "call_id"])
@@ -74,6 +75,12 @@ def handle_tool_call(message):
     return jsonify({"results": results}), 200
 
 
-if __name__ == '__main__':
+# ✅ This is the key addition:
+def run_webhook():
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
+
+# Optional direct run (not required for PyInstaller .exe)
+if __name__ == '__main__':
+    run_webhook()
