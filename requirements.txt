@@ -1,5 +1,6 @@
 Flask
-PyQt5
-pandas
 pyngrok
+pandas
+vapi-server-sdk
 python-dotenv
+PyQt5
