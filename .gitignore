@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Logs and local env
+*.log
+.env
+logs/
+
+# Distribution / packaging
+build/
+dist/
+*.spec
+*.exe
+
+# PyInstaller artifacts
+*.manifest
+*.spec
+
+# VSCode config
+.vscode/
