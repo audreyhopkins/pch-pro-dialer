@@ -1,4 +1,6 @@
-# -*- mode: python ; coding: utf-8 -*-
+# app.spec
+# PyInstaller build spec for PCH PRO DIALER
+
 block_cipher = None
 
 a = Analysis(
@@ -6,10 +8,13 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('logs/', 'logs'),
-        ('.env', '.')
+        ('.env', '.'),                # include the .env file
+        ('logs/calls_log.csv', 'logs'),   # include log files
+        ('logs/transcripts.csv', 'logs'),
     ],
-    hiddenimports=[],
+    hiddenimports=[
+        'vapi', 'dotenv', 'csv', 'threading', 'pandas', 'pyngrok', 'httpx'
+    ],
     hookspath=[],
     runtime_hooks=[],
     excludes=[],
@@ -23,12 +28,22 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 exe = EXE(
     pyz,
     a.scripts,
+    [],
+    exclude_binaries=True,
+    name='pch_pro_dialer',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=False  # Set to True if you want to see console output during runtime
+)
+
+coll = COLLECT(
+    exe,
     a.binaries,
     a.zipfiles,
     a.datas,
-    name='PCH_PRO_DIALER',
-    debug=False,
     strip=False,
     upx=True,
-    console=False
+    name='pch_pro_dialer'
 )
